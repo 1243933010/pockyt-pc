@@ -40,7 +40,7 @@ getClass();
                 <img class="img1" src="@/assets/logo1.svg" alt="">
                 <div class="search-box">
                     <div class="search">
-                        <input type="text" placeholder="search" />
+                        <input type="text" :placeholder="$t('app.newAdd4')" />
                         <div class="search-icon">
                             <div class="pic">
                                 <img src="@/assets/search.svg" />
@@ -51,7 +51,7 @@ getClass();
             </div>
             <div class="right">
                 <el-dropdown trigger="click">
-                    <div class="name" v-if="store.user.email">
+                    <div class="name" v-if="store.user.email" style="cursor: pointer;">
                         <span>{{ store.user.email ? store.user.email : $t("app.name1") }}</span>
                         <!-- <span>{{store.user.email }}</span> -->
 
@@ -85,7 +85,7 @@ getClass();
             </div>
         </div>
         <div class="tab-con">
-            <div class="content">
+            <div class="content" :class="scroll.length<=4?'content1':''">
                 <div class="item" v-for="(item, index) in scroll">
                     <div class="img-bk"> <img :src="item.class_img" alt=""></div>
                     <span class="name">{{ item.class_name }}</span>
@@ -238,6 +238,15 @@ getClass();
                         width: 24px;
                     }
                 }
+            }
+        }
+        .content1{
+            display: flex;
+            flex-direction: row ;
+            justify-content: flex-start;
+            .item{
+                // width: 20%;
+                margin-right: 10%;
             }
         }
     }
