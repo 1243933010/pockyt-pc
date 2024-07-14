@@ -4,6 +4,9 @@ import { createI18n } from 'vue-i18n';
 const messages = {
 	'zh-Hans': {
 		app: {
+			"newAdd1":"个人资料",
+			"newAdd2":"Pockyt余额",
+			"newAdd3":"退出登录",
 			hello: 'hello',
 			"name1": "游客",
 			"name2": "全部礼卡",

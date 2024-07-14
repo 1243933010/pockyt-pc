@@ -1,3 +1,9 @@
 .input :deep(.el-input) .el-input__wrapper {
   border-radius: 10px;
 }
+.select {
+  width: 80px;
+}
+.select :deep(.el-select__wrapper) {
+  border-radius: 20px;
+}

@@ -2,8 +2,18 @@
 import { RouterLink, RouterView } from 'vue-router'
 import HeaderCom from './components/HeaderCom.vue'
 import FooterCom from './components/FooterCom.vue'
+import { userStoreFnc } from '@/stores/userStore';
+
 import zhCn from 'element-plus/dist/locale/zh-cn.mjs'
 import en from 'element-plus/dist/locale/en.mjs'
+
+
+const store = userStoreFnc()
+let userInfo = JSON.parse(localStorage.getItem('userinfo'))
+// console.log(userInfo)
+if(userInfo.email){
+  store.user = userInfo
+}
 </script>
 
 <template>

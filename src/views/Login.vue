@@ -33,9 +33,8 @@ import { ref, reactive } from 'vue'
 import { $request } from '@/utils/request';
 import { useRouter } from 'vue-router';
 import { ElMessage } from 'element-plus'
-// import {useStore} from 'pinia'
-// import type { FormInstance, FormRules } from 'element-plus'
-// const store = useStore()
+import { userStoreFnc } from '@/stores/userStore';
+const store = userStoreFnc()
 const requestInfo = ref({
     email: "1243933010@qq.com",
     password: "ChongShao1@"
@@ -69,11 +68,13 @@ const loginHandle = async () => {
             userinfo
         } = data;
 
-        // console.log(store)
-
-        // localStorage.setItem("token", JSON.stringify(token))
-        // localStorage.setItem("userinfo", JSON.stringify(userinfo))
-        // router.push({ path: '/' })
+       
+        store.token = token;
+        store.user = userinfo;
+        console.log(store)
+        localStorage.setItem("token", JSON.stringify(token))
+        localStorage.setItem("userinfo", JSON.stringify(userinfo))
+        router.push({ path: '/' })
 
 
     });

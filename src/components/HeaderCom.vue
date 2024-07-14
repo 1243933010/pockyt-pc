@@ -1,22 +1,32 @@
 <script setup>
 import { $request } from '@/utils/request'
-import { ref } from 'vue';
+import { reactive, ref } from 'vue';
+import { userStoreFnc } from '@/stores/userStore';
+const store = userStoreFnc()
 import { useI18n } from 'vue-i18n';
 let { t, locale } = useI18n();
 const scroll = ref([])
 const list = ref([])
+
+// const local = ref(store.local);
+const locals = ref('zh-ch');
+
+const options = ref([
+    {value:'zh-ch',label:'CN'},
+    {value:'en',label:'EN'},
+])
 let getClass = async () => {
     let res = await $request('goodsClass', '/0')
     console.log(res)
     if (res.data.code == 200) {
         scroll.value = res.data.data;
-        list.value =scroll.value[0].child;
+        list.value = scroll.value[0].child;
     }
 }
 
-console.log(useI18n())
+console.log(locals.value)
 
-const checkLocal = ()=>{
+const checkLocal = () => {
     locale.value = 'fr'
 }
 
@@ -40,11 +50,26 @@ getClass();
                 </div>
             </div>
             <div class="right">
+                <el-dropdown trigger="click">
+                    <div class="name" v-if="store.user.email">
+                        <span>{{ store.user.email ? store.user.email : $t("app.name1") }}</span>
+                        <!-- <span>{{store.user.email }}</span> -->
 
-                <div class="name">
+                        <img src="@/assets/xiala.png" alt="">
+                        <!-- {{ $t("message.hello") }} -->
+                    </div>
+                    <template #dropdown>
+
+                        <el-dropdown-menu>
+                            <el-dropdown-item>{{ $t('app.newAdd1') }}</el-dropdown-item>
+                            <el-dropdown-item>{{ $t('app.newAdd2') }}</el-dropdown-item>
+                            <el-dropdown-item>{{ $t('app.newAdd3') }}</el-dropdown-item>
+                        </el-dropdown-menu>
+                    </template>
+                </el-dropdown>
+                <div class="name" v-if="!store.user.email">
                     <span>{{ $t("app.name1") }}</span>
                     <img src="@/assets/xiala.png" alt="">
-                    <!-- {{ $t("message.hello") }} -->
                 </div>
                 <div class="other">
                     <img src="@/assets/collect.svg" alt="">
@@ -52,21 +77,27 @@ getClass();
                 <div class="other">
                     <img src="@/assets/order.svg" alt="">
                 </div>
+                <div class="select">
+                    <el-select v-model="locals"  placeholder="Select" >
+                        <el-option v-for="item in options" :key="item.value" :label="item.label" :value="item.value" />
+                    </el-select>
+                </div>
             </div>
         </div>
         <div class="tab-con">
-           <div class="content">
-            <div class="item" v-for="(item,index) in scroll">
-               <div class="img-bk"> <img :src="item.class_img" alt=""></div>
-                <span class="name">{{item.class_name}}</span>
-                
+            <div class="content">
+                <div class="item" v-for="(item, index) in scroll">
+                    <div class="img-bk"> <img :src="item.class_img" alt=""></div>
+                    <span class="name">{{ item.class_name }}</span>
+
+                </div>
             </div>
-           </div>
         </div>
     </div>
 </template>
 
 <style lang="less" scoped>
+@import url(../assets/less/variable.less);
 .header-container {
     width: 100%;
     box-sizing: border-box;
@@ -82,6 +113,7 @@ getClass();
         justify-content: space-between;
         align-items: center;
         padding-bottom: 20px;
+
         .logo {
             display: flex;
             flex-direction: row;
@@ -175,32 +207,37 @@ getClass();
             }
         }
     }
-    .tab-con{
+
+    .tab-con {
         width: 100%;
         background-color: #2A9C62;
         box-sizing: border-box;
         padding: 20px 0;
-        .content{
+
+        .content {
             max-width: 1280px;
             margin: 0 auto;
             display: flex;
             justify-content: space-around;
             // flex-direction: row;
             align-items: center;
-            .item{
+
+            .item {
                 color: white;
-               .img-bk{
-                  background: white;
-                  border-radius: 30px;
-                  display: flex;
-                  justify-content: center;
-                  align-items: center;
-                  box-sizing: border-box;
-                  padding: 5px 0;
-                  img{
-                    width: 24px;
-                  }
-               }
+
+                .img-bk {
+                    background: white;
+                    border-radius: 30px;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    box-sizing: border-box;
+                    padding: 5px 0;
+
+                    img {
+                        width: 24px;
+                    }
+                }
             }
         }
     }
