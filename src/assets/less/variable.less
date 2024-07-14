@@ -1,0 +1,30 @@
+@bodyColor: #333;
+@descColor: #999;
+
+@bodySize: 30rpx;
+@descSize: 24rpx;
+
+.df(@alignItems: stretch, @justifyContent: flex-start) {
+	display: flex;
+	align-items: @alignItems;
+	justify-content: @justifyContent;
+}
+
+// 多行溢出隐藏
+.vertical(@n) {
+	display: -webkit-box;
+	-webkit-line-clamp: @n;
+	-webkit-box-orient: vertical;
+	overflow: hidden;
+}
+
+// 按钮
+.btn-box(@bg: #41AF74, @br: 20rpx, @color: #fff, @fz: 32rpx, @py: 30rpx, @px: 20rpx) {
+	border-radius: @br;
+	padding: @py @px;
+	font-size: @fz;
+	background-color: @bg;
+	line-height: 1.3;
+	color: @color;
+	text-align: center;
+}
