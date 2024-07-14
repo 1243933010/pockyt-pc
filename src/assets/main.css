@@ -5,6 +5,7 @@
   margin: 0 auto;
   /* padding: 2rem; */
   font-weight: normal;
+  height: 100%;
 }
 
 a,
@@ -22,7 +23,9 @@ a,
 }
 
 @media (min-width: 1024px) {
+
   body {
+    height: 100%;
     /* display: flex; */
     /* place-items: center; */
   }

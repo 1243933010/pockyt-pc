@@ -1,7 +1,8 @@
 <script setup>
 import { $request } from '@/utils/request'
 import { ref } from 'vue';
-
+import { useI18n } from 'vue-i18n';
+let { t, locale } = useI18n();
 const scroll = ref([])
 const list = ref([])
 let getClass = async () => {
@@ -9,11 +10,15 @@ let getClass = async () => {
     console.log(res)
     if (res.data.code == 200) {
         scroll.value = res.data.data;
-        list =scroll.value[0].child;
+        list.value =scroll.value[0].child;
     }
 }
 
+console.log(useI18n())
 
+const checkLocal = ()=>{
+    locale.value = 'fr'
+}
 
 getClass();
 </script>
@@ -21,8 +26,8 @@ getClass();
 <template>
     <div class="header-container">
         <div class="header-container-top">
-            <div class="logo">
-                <img class="img1" src="@/assets/logo.svg" alt="">
+            <div class="logo" @click="checkLocal">
+                <img class="img1" src="@/assets/logo1.svg" alt="">
                 <div class="search-box">
                     <div class="search">
                         <input type="text" placeholder="search" />
@@ -84,8 +89,8 @@ getClass();
 
             // background-color: red;
             .img1 {
-                width: 40px;
-                height: 40px;
+                width: 150px;
+                // height: 40px;
                 margin-right: 40px;
             }
 

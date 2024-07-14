@@ -1,13 +1,23 @@
 <script setup>
 import { RouterLink, RouterView } from 'vue-router'
 import HeaderCom from './components/HeaderCom.vue'
-
+import FooterCom from './components/FooterCom.vue'
+import zhCn from 'element-plus/dist/locale/zh-cn.mjs'
+import en from 'element-plus/dist/locale/en.mjs'
 </script>
 
 <template>
-   <HeaderCom />
+  <div style="display: flex;flex-direction: column;justify-content: space-between;height: 100%">
+    <el-config-provider :locale="zhCn">
+    <HeaderCom />
 
-  <RouterView />
+
+   
+<RouterView />
+
+<FooterCom />
+</el-config-provider>
+  </div>
 </template>
 
 <style scoped>
